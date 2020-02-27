@@ -28,9 +28,13 @@ namespace CalculatorWPF
             controler = new Controler(this);
         }
 
+        StringBuilder resultLabelStr = new StringBuilder();
+        StringBuilder historyLabelStr = new StringBuilder();
+
+        //buttons
         private void Button_plus_click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("You clicked at " + Mouse.GetPosition(this).ToString());
+            
         }
 
         private void Button_minus_click(object sender, RoutedEventArgs e)
@@ -56,52 +60,105 @@ namespace CalculatorWPF
 
         private void Button_0_click(object sender, RoutedEventArgs e)
         {
+            if (resultLabelStr.Length == 0)
+            {
+                resultLabelStr.Append("0");
+            }
+            else if(resultLabelStr.Length == 1 && resultLabelStr.ToString() == "0")
+            {
 
+            }
+            else if(resultLabelStr.Length == 1)
+            {
+                resultLabelStr.Append("0");
+            }
+            else if(resultLabelStr.Length > 1)
+            {
+                resultLabelStr.Append("0");
+            }
+
+            Label_result.Content = resultLabelStr.ToString();
         }
 
         private void Button_1_click(object sender, RoutedEventArgs e)
         {
-
+            if (resultLabelStr.Length == 1 && resultLabelStr.ToString() == "0")
+                resultLabelStr.Clear();
+            
+            resultLabelStr.Append("1");
+            Label_result.Content = resultLabelStr.ToString();
         }
 
         private void Button_2_click(object sender, RoutedEventArgs e)
         {
+            if (resultLabelStr.Length == 1 && resultLabelStr.ToString() == "0")
+                resultLabelStr.Clear();
 
+            resultLabelStr.Append("2");
+            Label_result.Content = resultLabelStr.ToString();
         }
 
         private void Button_3_click(object sender, RoutedEventArgs e)
         {
+            if (resultLabelStr.Length == 1 && resultLabelStr.ToString() == "0")
+                resultLabelStr.Clear();
 
+            resultLabelStr.Append("3");
+            Label_result.Content = resultLabelStr.ToString();
         }
 
         private void Button_4_click(object sender, RoutedEventArgs e)
         {
+            if (resultLabelStr.Length == 1 && resultLabelStr.ToString() == "0")
+                resultLabelStr.Clear();
 
+            resultLabelStr.Append("4");
+            Label_result.Content = resultLabelStr.ToString();
         }
 
         private void Button_5_click(object sender, RoutedEventArgs e)
         {
+            if (resultLabelStr.Length == 1 && resultLabelStr.ToString() == "0")
+                resultLabelStr.Clear();
 
+            resultLabelStr.Append("5");
+            Label_result.Content = resultLabelStr.ToString();
         }
 
         private void Button_6_click(object sender, RoutedEventArgs e)
         {
+            if (resultLabelStr.Length == 1 && resultLabelStr.ToString() == "0")
+                resultLabelStr.Clear();
 
+            resultLabelStr.Append("6");
+            Label_result.Content = resultLabelStr.ToString();
         }
 
         private void Button_7_click(object sender, RoutedEventArgs e)
         {
+            if (resultLabelStr.Length == 1 && resultLabelStr.ToString() == "0")
+                resultLabelStr.Clear();
 
+            resultLabelStr.Append("7");
+            Label_result.Content = resultLabelStr.ToString();
         }
 
         private void Button_8_click(object sender, RoutedEventArgs e)
         {
+            if (resultLabelStr.Length == 1 && resultLabelStr.ToString() == "0")
+                resultLabelStr.Clear();
 
+            resultLabelStr.Append("8");
+            Label_result.Content = resultLabelStr.ToString();
         }
 
         private void Button_9_click(object sender, RoutedEventArgs e)
         {
+            if (resultLabelStr.Length == 1 && resultLabelStr.ToString() == "0")
+                resultLabelStr.Clear();
 
+            resultLabelStr.Append("9");
+            Label_result.Content = resultLabelStr.ToString();
         }
 
         private void Button_1_x_click(object sender, RoutedEventArgs e)
@@ -114,5 +171,17 @@ namespace CalculatorWPF
 
         }
 
+
+
+        //Labels
+        public void setResultlabel(string text)
+        {
+            Label_result.Content = text;
+        }
+
+        public void setResultLabel(double text)
+        {
+            Label_result.Content = text;
+        }
     }
 }
