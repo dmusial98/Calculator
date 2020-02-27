@@ -28,7 +28,7 @@ namespace CalculatorWPF
             controler = new Controler(this);
         }
 
-        StringBuilder resultLabelStr = new StringBuilder();
+        StringBuilder resultLabelStr = new StringBuilder("0");
         StringBuilder historyLabelStr = new StringBuilder();
 
         //buttons
@@ -159,6 +159,24 @@ namespace CalculatorWPF
 
             resultLabelStr.Append("9");
             Label_result.Content = resultLabelStr.ToString();
+        }
+
+        private void Button_backspc_click(object sender, RoutedEventArgs e)
+        {
+            if(resultLabelStr.Length > 0)
+            {
+                if(resultLabelStr.Length == 1)
+                {
+                    resultLabelStr.Clear();
+                    resultLabelStr.Append("0");
+                }
+                else
+                {
+                    resultLabelStr.Remove(resultLabelStr.Length - 1, 1);
+                }
+
+                Label_result.Content = resultLabelStr.ToString();
+            }
         }
 
         private void Button_1_x_click(object sender, RoutedEventArgs e)
