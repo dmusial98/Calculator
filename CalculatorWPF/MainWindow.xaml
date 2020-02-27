@@ -39,7 +39,7 @@
         <Button x:Name="Button_sin" Content="sin"  HorizontalAlignment="Left" Margin="0,154,0,0" VerticalAlignment="Top" Width="50" Height="44" RenderTransformOrigin="2.592,-1.43"/>
         <Button x:Name="Button_cos" Content="cos" HorizontalAlignment="Left" Margin="50,154,0,0" VerticalAlignment="Top" Width="50" Height="44" RenderTransformOrigin="2.592,-1.43" Click="Button_cos_click"/>
         <Button x:Name ="Button_1_x" Content="1/x" HorizontalAlignment="Left" Margin="100,154,0,0" VerticalAlignment="Top" Width="50" Height="44" RenderTransformOrigin="2.592,-1.43" Click="Button_1_x_click"/>
-        <Button x:Name="Button_C" Content="C" HorizontalAlignment="Left" Margin="150,154,0,0" VerticalAlignment="Top" Width="50" Height="44" RenderTransformOrigin="2.592,-1.43"/>
+        <Button x:Name="Button_C" Content="C" HorizontalAlignment="Left" Margin="150,154,0,0" VerticalAlignment="Top" Width="50" Height="44" RenderTransformOrigin="2.592,-1.43"  Click="Button_C_click"/>
         <Button x:Name="Button_Backspc" Content="Backspc" HorizontalAlignment="Left" Margin="200,154,0,0" VerticalAlignment="Top" Width="50" Height="44" RenderTransformOrigin="2.592,-1.43" Click="Button_backspc_click"/>
         <Label x:Name ="Label_result" Content="0" HorizontalAlignment="Left" Margin="0,57,0,0" VerticalAlignment="Top" Height="92" Width="250"/>
         <Label x:Name ="Label_history" Content="" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="-0.237,0.26" Height="52" Width="250" Margin="-358,0,0,0"/>

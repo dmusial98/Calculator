@@ -179,6 +179,13 @@ namespace CalculatorWPF
             }
         }
 
+        private void Button_C_click(object sender, RoutedEventArgs e)
+        {
+            resultLabelStr.Clear();
+            resultLabelStr.Append("0");
+            Label_result.Content = resultLabelStr.ToString();
+        }
+
         private void Button_1_x_click(object sender, RoutedEventArgs e)
         {
             MessageBox.Show("You clicked at " + Mouse.GetPosition(this).ToString());
