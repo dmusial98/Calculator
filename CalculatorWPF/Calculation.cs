@@ -21,15 +21,7 @@ namespace CalculatorWPF
         {
             double numberDouble;
 
-            try
-            {
-                numberDouble = Double.Parse(numberStr);
-            }
-            catch (ArgumentNullException)
-            {
-                return result;
-            }
-            catch(OverflowException)
+            if (!Double.TryParse(numberStr, out numberDouble))
             {
                 return result;
             }
@@ -41,10 +33,46 @@ namespace CalculatorWPF
 
         public double subtractNumber(string numberStr)
         {
+            double numberDouble;
 
+            if(!Double.TryParse(numberStr, out numberDouble))
+            {
+                return result;
+            }
+
+            result -= numberDouble;
 
             return result;
         }
+
+        public double multiplyNumber(string numberStr)
+        {
+            double numberDouble;
+
+            if (!Double.TryParse(numberStr, out numberDouble))
+            {
+                return result;
+            }
+
+            result *= numberDouble;
+
+            return result;
+        }
+
+        public double divideNumber(string numberStr)
+        {
+            double numberDouble;
+
+            if (!Double.TryParse(numberStr, out numberDouble))
+            {
+                return result;
+            }
+
+            result /= numberDouble;
+
+            return result;
+        }
+
     }
 }
 
