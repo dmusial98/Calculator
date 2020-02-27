@@ -161,6 +161,16 @@ namespace CalculatorWPF
             Label_result.Content = resultLabelStr.ToString();
         }
 
+        private void Button_comma_click(object sender, RoutedEventArgs e)
+        {
+            int index = resultLabelStr.ToString().IndexOf(".");
+
+            if(index == -1)
+                resultLabelStr.Append(".");
+
+            Label_result.Content = resultLabelStr.ToString();
+        }
+
         private void Button_backspc_click(object sender, RoutedEventArgs e)
         {
             if(resultLabelStr.Length > 0)
