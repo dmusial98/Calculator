@@ -8,21 +8,22 @@ namespace CalculatorWPF
 {
     public class Calculation
     {
+
         //reference to controler
         Controler controler;
 
-        Int64 result = 0;
+        double result = 0;
 
         public Calculation(Controler con)  { controler = con; }
 
         //adding number to current result
-        public Int64 addNumber(string numberStr)
+        public double addNumber(string numberStr)
         {
-            Int64 numberInt;
+            double numberDouble;
 
             try
             {
-                numberInt = Int64.Parse(numberStr);
+                numberDouble = Double.Parse(numberStr);
             }
             catch (ArgumentNullException)
             {
@@ -33,12 +34,12 @@ namespace CalculatorWPF
                 return result;
             }
 
-            result += numberInt;
+            result += numberDouble;
 
             return result;
         }
 
-        public Int64 subtractNumber(string numberStr)
+        public double subtractNumber(string numberStr)
         {
 
 
