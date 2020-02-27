@@ -1,0 +1,48 @@
+﻿<Window x:Class="CalculatorWPF.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CalculatorWPF"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="260.000">
+    <Grid Margin="0,0,2,0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="368*"/>
+            <RowDefinition Height="51*"/>
+        </Grid.RowDefinitions>
+        <Button x:Name="ln" Content="ln" HorizontalAlignment="Left" Margin="0,7.231,0,0" VerticalAlignment="Top" Width="50" Height="44" Grid.Row="1"/>
+        <Button Content="+/-" HorizontalAlignment="Left" Margin="50,7.231,0,0" VerticalAlignment="Top" Width="50" Height="44" Grid.Row="1"/>
+        <Button Content="0" HorizontalAlignment="Left" Margin="100,7.231,0,0" VerticalAlignment="Top" Width="50" Height="44" Grid.Row="1" Click="Button_0_click"/>
+        <Button Content="," HorizontalAlignment="Left" Margin="150,7.231,0,0" VerticalAlignment="Top" Width="50" Height="44" Grid.Row="1"/>
+        <Button Content="=" HorizontalAlignment="Left" Margin="200,7.231,0,0" VerticalAlignment="Top" Width="50" Height="44" Grid.Row="1" Click="Button_equals_click"/>
+        <Button x:Name="Button_log" Content="log" HorizontalAlignment="Left" Margin="0,331,0,0" VerticalAlignment="Top" Width="50" Height="44" Grid.RowSpan="2"/>
+        <Button x:Name="Button_1" Content="1" HorizontalAlignment="Left" Margin="50,331,0,0" VerticalAlignment="Top" Width="50" Height="44" Grid.RowSpan="2" Click="Button_1_click"/>
+        <Button x:Name="Button_2" Content="2" HorizontalAlignment="Left" Margin="100,331,0,0" VerticalAlignment="Top" Width="50" Height="44" Grid.RowSpan="2" Click="Button_2_click"/>
+        <Button x:Name="Button_3" Content="3" HorizontalAlignment="Left" Margin="150,331,0,0" VerticalAlignment="Top" Width="50" Height="44" Grid.RowSpan="2" Click="Button_3_click"/>
+        <Button x:Name="Button_plus" Content="+" HorizontalAlignment="Left" Margin="200,331,0,0" VerticalAlignment="Top" Width="50" Height="44" Grid.RowSpan="2" Click="Button_plus_click"/>
+        <Button x:Name="Button_x_2" Content="x^2" HorizontalAlignment="Left" Margin="0,286,0,0" VerticalAlignment="Top" Width="50" Height="45"/>
+        <Button x:Name ="Button_4" Content="4" HorizontalAlignment="Left" Margin="50,286,0,0" VerticalAlignment="Top" Width="50" Height="45" Click="Button_4_click"/>
+        <Button x:Name ="Button_5" Content="5" HorizontalAlignment="Left" VerticalAlignment="Top" Width="50" Height="45" RenderTransformOrigin="-0.661,-1.591" Margin="100,286,0,0" Click="Button_5_click"/>
+        <Button x:Name ="Button_6" Content="6" HorizontalAlignment="Left" Margin="150,286,0,0" VerticalAlignment="Top" Width="50" Height="45" Click="Button_6_click"/>
+        <Button x:Name ="Button_minus" Content="-" HorizontalAlignment="Left" Margin="200,286,0,0" VerticalAlignment="Top" Width="50" Height="45" RenderTransformOrigin="2.592,-1.43" Click="Button_minus_click"/>
+        <Button x:Name ="Button_x_y" Content="x^y" HorizontalAlignment="Left" Margin="0,242,0,0" VerticalAlignment="Top" Width="50" Height="44" RenderTransformOrigin="2.592,-1.43"/>
+        <Button x:Name ="Button_7" Content="7" HorizontalAlignment="Left" Margin="50,242,0,0" VerticalAlignment="Top" Width="50" Height="44" RenderTransformOrigin="2.592,-1.43" Click="Button_7_click"/>
+        <Button x:Name ="Button_8" Content="8" HorizontalAlignment="Left" Margin="100,242,0,0" VerticalAlignment="Top" Width="50" Height="44" RenderTransformOrigin="2.592,-1.43" Click="Button_8_click"/>
+        <Button x:Name ="Button_9" Content="9" HorizontalAlignment="Left" Margin="150,242,0,0" VerticalAlignment="Top" Width="50" Height="44" RenderTransformOrigin="2.592,-1.43" Click="Button_9_click"/>
+        <Button x:Name ="Button_X" Content="X" HorizontalAlignment="Left" Margin="200,242,0,0" VerticalAlignment="Top" Width="50" Height="44" RenderTransformOrigin="2.592,-1.43" Click="Button_multiply_click"/>
+        <Button x:Name ="Button_left_bracket" Content="(" HorizontalAlignment="Left" Margin="0,198,0,0" VerticalAlignment="Top" Width="50" Height="44" RenderTransformOrigin="2.592,-1.43"/>
+        <Button x:Name ="Button_right_bracket" Content=")" HorizontalAlignment="Left" Margin="50,198,0,0" VerticalAlignment="Top" Width="50" Height="44" RenderTransformOrigin="2.592,-1.43"/>
+        <Button x:Name ="Button_pi" Content="Pi" HorizontalAlignment="Left" Margin="100,198,0,0" VerticalAlignment="Top" Width="50" Height="44" RenderTransformOrigin="2.592,-1.43"/>
+        <Button x:Name="Button_e" Content="e" HorizontalAlignment="Left" Margin="150,198,0,0" VerticalAlignment="Top" Width="50" Height="44" RenderTransformOrigin="2.592,-1.43"/>
+        <Button x:Name ="Buton_divide" Content="/" HorizontalAlignment="Left" Margin="200,198,0,0" VerticalAlignment="Top" Width="50" Height="44" RenderTransformOrigin="2.592,-1.43" Click="Button_divide_click"/>
+        <Button x:Name="Button_sin" Content="sin"  HorizontalAlignment="Left" Margin="0,154,0,0" VerticalAlignment="Top" Width="50" Height="44" RenderTransformOrigin="2.592,-1.43"/>
+        <Button x:Name="Button_cos" Content="cos" HorizontalAlignment="Left" Margin="50,154,0,0" VerticalAlignment="Top" Width="50" Height="44" RenderTransformOrigin="2.592,-1.43" Click="Button_cos_click"/>
+        <Button x:Name ="Button_1_x" Content="1/x" HorizontalAlignment="Left" Margin="100,154,0,0" VerticalAlignment="Top" Width="50" Height="44" RenderTransformOrigin="2.592,-1.43" Click="Button_1_x_click"/>
+        <Button x:Name="Button_C" Content="C" HorizontalAlignment="Left" Margin="150,154,0,0" VerticalAlignment="Top" Width="50" Height="44" RenderTransformOrigin="2.592,-1.43"/>
+        <Button x:Name="Button_Backspc" Content="Backspc" HorizontalAlignment="Left" Margin="200,154,0,0" VerticalAlignment="Top" Width="50" Height="44" RenderTransformOrigin="2.592,-1.43"/>
+        <Label x:Name ="Label_result" Content="Dupa" HorizontalAlignment="Left" Margin="0,57,0,0" VerticalAlignment="Top" Height="92" Width="250"/>
+        <Label x:Name ="Label_history" Content="Label" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="-0.237,0.26" Height="52" Width="250"/>
+
+    </Grid>
+</Window>
