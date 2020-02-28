@@ -217,6 +217,19 @@ namespace CalculatorWPF
         public void setResultLabel(double text)
         {
             Label_result.Content = text;
+            resultLabelStr.Clear();
+        }
+
+        public void appendToHistorylabel(string text)
+        {
+            historyLabelStr.Append(text);
+            Label_history.Content = historyLabelStr.ToString();
+        }
+
+        public void appendToHistoryLabel(Double number)
+        {
+            historyLabelStr.Append(number.ToString());
+            Label_history.Content = historyLabelStr.ToString();
         }
     }
 }
