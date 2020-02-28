@@ -68,6 +68,7 @@
     </Compile>
     <Compile Include="Calculation.cs" />
     <Compile Include="Controler.cs" />
+    <Compile Include="IncorrectInputDataException.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>

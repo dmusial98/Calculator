@@ -20,8 +20,10 @@ namespace CalculatorWPF
     /// </summary>
     public partial class MainWindow : Window
     {
+        //reference to controler
         Controler controler;
 
+        //constructor
         public MainWindow()
         {
             InitializeComponent();
@@ -205,7 +207,6 @@ namespace CalculatorWPF
         {
 
         }
-
 
 
         //Labels
