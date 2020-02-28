@@ -23,50 +23,6 @@ namespace CalculatorWPF
             operations.Add(new OperationStruct(OperationStruct.Operation.None));
         }
 
-
-        //public double doBasicOperation(string numberStr, Operation oper)
-        //{
-        //    double numberDouble;
-
-        //    if (!Double.TryParse(numberStr, out numberDouble))
-        //    {
-        //        return result;
-        //    }
-
-        //    if (isFirstOperation)
-        //    {
-        //        result = numberDouble;
-        //        isFirstOperation = false;
-        //    }
-        //    else  //when calculator has second or later operator
-        //    {
-        //        switch (operation)
-        //        {
-        //            case Operation.Add:
-
-        //                result += numberDouble;
-        //                break;
-
-        //            case Operation.Subtract:
-        //                result -= numberDouble;
-        //                break;
-
-        //            case Operation.Multiply:
-        //                result *= numberDouble;
-        //                break;
-
-        //            case Operation.Divide:
-        //                result /= numberDouble;
-        //                break;
-        //        }
-
-        //    }
-
-        //    operation = oper;
-        //    return result;
-        //}
-
-
         public double Count(string numberStr, OperationStruct newOperationStruct)
         {
             double numberDouble;
