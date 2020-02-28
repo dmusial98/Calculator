@@ -20,27 +20,27 @@ namespace CalculatorWPF
             window = mw;
         }
 
-        public void basicOprationButtonClicked(string numberStr, Calculation.Operation operation)
+        public void operationButtonClicked(string numberStr, OperationStruct operationStruct)
         {
-            window.setResultLabel(model.doBasicOperation(numberStr, operation));
+            window.setResultLabel(model.Count(numberStr, operationStruct));
 
             string _operator = "";
 
-            switch (operation)
+            switch (operationStruct.operation)
             {
-                case Calculation.Operation.Add :
+                case OperationStruct.Operation.Add :
                     _operator = " + ";
                     break;
 
-                case Calculation.Operation.Subtract :
+                case OperationStruct.Operation.Subtract :
                     _operator = " - ";
                     break;
 
-                case Calculation.Operation.Multiply :
+                case OperationStruct.Operation.Multiply :
                     _operator = " x ";
                     break;
 
-                case Calculation.Operation.Divide :
+                case OperationStruct.Operation.Divide :
                     _operator = " / ";
                     break;
             }

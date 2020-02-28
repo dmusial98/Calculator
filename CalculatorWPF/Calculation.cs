@@ -8,72 +8,161 @@ namespace CalculatorWPF
 {
     public class Calculation
     {
-
         //reference to controler
         Controler controler;
 
-        double result = 0;
-        Operation operation = Operation.None;
-        bool isFirstOperation = true;
+        List<Double> results = new List<Double>();
+        List<OperationStruct> operations = new List<OperationStruct>();
 
-        public enum Operation
-        {
-            Add,
-            Subtract,
-            Multiply,
-            Divide, 
-            None
-        }
-
-        //variable for storing information about new operation
-        
+        bool isFirstOperation = true;        
 
         public Calculation(Controler con)
         {
             controler = con;
+            results.Add(0.0);
+            operations.Add(new OperationStruct(OperationStruct.Operation.None));
         }
 
 
-        public double doBasicOperation(string numberStr, Operation oper)
+        //public double doBasicOperation(string numberStr, Operation oper)
+        //{
+        //    double numberDouble;
+
+        //    if (!Double.TryParse(numberStr, out numberDouble))
+        //    {
+        //        return result;
+        //    }
+
+        //    if (isFirstOperation)
+        //    {
+        //        result = numberDouble;
+        //        isFirstOperation = false;
+        //    }
+        //    else  //when calculator has second or later operator
+        //    {
+        //        switch (operation)
+        //        {
+        //            case Operation.Add:
+
+        //                result += numberDouble;
+        //                break;
+
+        //            case Operation.Subtract:
+        //                result -= numberDouble;
+        //                break;
+
+        //            case Operation.Multiply:
+        //                result *= numberDouble;
+        //                break;
+
+        //            case Operation.Divide:
+        //                result /= numberDouble;
+        //                break;
+        //        }
+
+        //    }
+
+        //    operation = oper;
+        //    return result;
+        //}
+
+
+        public double Count(string numberStr, OperationStruct newOperationStruct)
         {
             double numberDouble;
 
             if (!Double.TryParse(numberStr, out numberDouble))
             {
-                return result;
+                return results[results.Count - 1];
             }
 
             if (isFirstOperation)
             {
-                result = numberDouble;
+                results[results.Count - 1] = numberDouble;
+                operations[operations.Count - 1] = newOperationStruct;
                 isFirstOperation = false;
             }
             else  //when calculator has second or later operator
             {
-                switch (operation)
+                if(newOperationStruct.priority == operations[operations.Count - 1].priority)
                 {
-                    case Operation.Add:
+                    switch (operations[operations.Count - 1].operation)
+                    {
+                        case OperationStruct.Operation.Add:
+                            results[results.Count - 1] += numberDouble;
+                            break;
 
-                        result += numberDouble;
-                        break;
+                        case OperationStruct.Operation.Subtract:
+                            results[results.Count - 1] -= numberDouble;
+                            break;
 
-                    case Operation.Subtract:
-                        result -= numberDouble;
-                        break;
+                        case OperationStruct.Operation.Multiply:
+                            results[results.Count - 1] *= numberDouble;
+                            break;
 
-                    case Operation.Multiply:
-                        result *= numberDouble;
-                        break;
+                        case OperationStruct.Operation.Divide:
+                            results[results.Count - 1] /= numberDouble;
+                            break;
+                    }
 
-                    case Operation.Divide:
-                        result /= numberDouble;
-                        break;
+                    operations[operations.Count - 1] = newOperationStruct;
                 }
+                else if((newOperationStruct.priority < operations[operations.Count - 1].priority))
+                {
+                    switch(operations[operations.Count - 1].operation)
+                    {
+                        case OperationStruct.Operation.Add:
+                            results[results.Count - 1] += numberDouble;
+                        break;
+
+                        case OperationStruct.Operation.Subtract:
+                            results[results.Count - 1] -= numberDouble;
+                        break;
+
+                        case OperationStruct.Operation.Multiply:
+                            results[results.Count - 1] *= numberDouble;
+                        break;
+
+                        case OperationStruct.Operation.Divide:
+                            results[results.Count - 1] /= numberDouble;
+                        break;
+                    }
+
+                    operations.RemoveAt(operations.Count - 1); //deleting last operator
+
+                    switch(operations[operations.Count - 1].operation)
+                    {
+                        case OperationStruct.Operation.Add:
+                            results[results.Count - 2] += results[results.Count - 1];
+                            break;
+
+                        case OperationStruct.Operation.Subtract:
+                            results[results.Count - 2] -= results[results.Count - 1];
+                            break;
+
+                        case OperationStruct.Operation.Multiply:
+                            results[results.Count - 2] *= results[results.Count - 1];
+                            break;
+
+                        case OperationStruct.Operation.Divide:
+                            results[results.Count - 2] /= results[results.Count - 1];
+                            break;
+                    }
+
+                    results.RemoveAt(results.Count - 1);
+                }
+                else
+                {
+                    results.Add(numberDouble);
+                    operations.Add(newOperationStruct);
+                }
+
+                
 
             }
 
-            operation = oper;
-            return result;
+
+            return results[results.Count - 1];
         }
 
     }
