@@ -36,17 +36,19 @@ namespace CalculatorWPF
         //buttons
         private void Button_plus_click(object sender, RoutedEventArgs e)
         {
-            controler.buttonPlusClicked(resultLabelStr.ToString());   
+            //controler.buttonPlusClicked(resultLabelStr.ToString());   
+            controler.basicOprationButtonClicked(resultLabelStr.ToString(), Calculation.Operation.Add);
         }
 
         private void Button_minus_click(object sender, RoutedEventArgs e)
         {
-            controler.buttonMinusClicked(resultLabelStr.ToString());
+            //controler.buttonMinusClicked(resultLabelStr.ToString());
+            controler.basicOprationButtonClicked(resultLabelStr.ToString(), Calculation.Operation.Subtract);
+
         }
 
         private void Button_multiply_click(object sender, RoutedEventArgs e)
         {
-
         }
 
         private void Button_divide_click(object sender, RoutedEventArgs e)

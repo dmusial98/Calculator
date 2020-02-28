@@ -13,11 +13,28 @@ namespace CalculatorWPF
         Controler controler;
 
         double result = 0;
+        Operation operation = Operation.None;
+        bool isFirstOperation = true;
 
-        public Calculation(Controler con)  { controler = con; }
+        public enum Operation
+        {
+            Add,
+            Subtract,
+            Multiply,
+            Divide, 
+            None
+        }
 
-        //adding number to current result
-        public double addNumber(string numberStr)
+        //variable for storing information about new operation
+        
+
+        public Calculation(Controler con)
+        {
+            controler = con;
+        }
+
+
+        public double doBasicOperation(string numberStr, Operation oper)
         {
             double numberDouble;
 
@@ -26,50 +43,36 @@ namespace CalculatorWPF
                 return result;
             }
 
-            result += numberDouble;
-
-            return result;
-        }
-
-        public double subtractNumber(string numberStr)
-        {
-            double numberDouble;
-
-            if(!Double.TryParse(numberStr, out numberDouble))
+            if (isFirstOperation)
             {
-                return result;
+                result = numberDouble;
+                isFirstOperation = false;
+            }
+            else  //when calculator has second or later operator
+            {
+                switch (operation)
+                {
+                    case Operation.Add:
+
+                        result += numberDouble;
+                        break;
+
+                    case Operation.Subtract:
+                        result -= numberDouble;
+                        break;
+
+                    case Operation.Multiply:
+                        result *= numberDouble;
+                        break;
+
+                    case Operation.Divide:
+                        result /= numberDouble;
+                        break;
+                }
+
             }
 
-            result -= numberDouble;
-
-            return result;
-        }
-
-        public double multiplyNumber(string numberStr)
-        {
-            double numberDouble;
-
-            if (!Double.TryParse(numberStr, out numberDouble))
-            {
-                return result;
-            }
-
-            result *= numberDouble;
-
-            return result;
-        }
-
-        public double divideNumber(string numberStr)
-        {
-            double numberDouble;
-
-            if (!Double.TryParse(numberStr, out numberDouble))
-            {
-                return result;
-            }
-
-            result /= numberDouble;
-
+            operation = oper;
             return result;
         }
 

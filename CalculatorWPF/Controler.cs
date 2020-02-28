@@ -14,37 +14,40 @@ namespace CalculatorWPF
         //Model for managing logic of calculator
         Calculation model;
 
-       public Controler(MainWindow mw)
+        public Controler(MainWindow mw)
         {
             model = new Calculation(this);
             window = mw;
         }
 
+        public void basicOprationButtonClicked(string numberStr, Calculation.Operation operation)
+        {
+            window.setResultLabel(model.doBasicOperation(numberStr, operation));
 
+            string _operator = "";
+
+            switch (operation)
+            {
+                case Calculation.Operation.Add :
+                    _operator = " + ";
+                    break;
+
+                case Calculation.Operation.Subtract :
+                    _operator = " - ";
+                    break;
+
+                case Calculation.Operation.Multiply :
+                    _operator = " x ";
+                    break;
+
+                case Calculation.Operation.Divide :
+                    _operator = " / ";
+                    break;
+            }
+
+            window.appendToHistorylabel(numberStr + _operator);
+        }
         
-        public void buttonPlusClicked(string numberStr)
-        {
-            window.setResultLabel(model.addNumber(numberStr));
-            window.appendToHistorylabel(numberStr + " + ");
-        }
-
-        public void buttonMinusClicked(string numberStr)
-        {
-            window.setResultLabel(model.subtractNumber(numberStr));
-            window.appendToHistorylabel(numberStr + " - ");
-        }
-
-        public void buttonMultiplyClicked(string numberStr)
-        {
-            model.subtractNumber(numberStr);
-        }
-
-        public void buttonDivideClicked(string numberStr)
-        {
-            model.divideNumber(numberStr);
-        }
-
-
     }
 
 
