@@ -20,6 +20,31 @@ namespace CalculatorWPF
             window = mw;
         }
 
+
+        
+        public void buttonPlusClicked(string numberStr)
+        {
+            window.setResultLabel(model.addNumber(numberStr));
+            window.appendToHistorylabel(numberStr + " + ");
+        }
+
+        public void buttonMinusClicked(string numberStr)
+        {
+            window.setResultLabel(model.subtractNumber(numberStr));
+            window.appendToHistorylabel(numberStr + " - ");
+        }
+
+        public void buttonMultiplyClicked(string numberStr)
+        {
+            model.subtractNumber(numberStr);
+        }
+
+        public void buttonDivideClicked(string numberStr)
+        {
+            model.divideNumber(numberStr);
+        }
+
+
     }
 
 
