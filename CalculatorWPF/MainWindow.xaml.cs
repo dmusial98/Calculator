@@ -31,17 +31,17 @@ namespace CalculatorWPF
         }
 
         StringBuilder resultLabelStr = new StringBuilder("0");
-        StringBuilder historyLabelStr = new StringBuilder();
+        StringBuilder historyLabelStr = new StringBuilder("");
 
         //buttons
         private void Button_plus_click(object sender, RoutedEventArgs e)
         {
-            
+            controler.buttonPlusClicked(resultLabelStr.ToString());   
         }
 
         private void Button_minus_click(object sender, RoutedEventArgs e)
         {
-
+            controler.buttonMinusClicked(resultLabelStr.ToString());
         }
 
         private void Button_multiply_click(object sender, RoutedEventArgs e)
@@ -165,10 +165,10 @@ namespace CalculatorWPF
 
         private void Button_comma_click(object sender, RoutedEventArgs e)
         {
-            int index = resultLabelStr.ToString().IndexOf(".");
+            int index = resultLabelStr.ToString().IndexOf(",");
 
             if(index == -1)
-                resultLabelStr.Append(".");
+                resultLabelStr.Append(",");
 
             Label_result.Content = resultLabelStr.ToString();
         }
