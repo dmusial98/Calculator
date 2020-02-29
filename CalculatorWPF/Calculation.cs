@@ -106,6 +106,8 @@ namespace CalculatorWPF
                     }
 
                     results.RemoveAt(results.Count - 1);
+
+                    operations[operations.Count - 1] = newOperationStruct;
                 }
                 else
                 {
