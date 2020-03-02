@@ -43,6 +43,11 @@ namespace CalculatorWPF
                 case OperationStruct.Operation.Divide :
                     _operator = " / ";
                     break;
+
+                case OperationStruct.Operation.Power :
+                    _operator = " ^ ";
+                    break;
+
             }
 
             window.appendToHistorylabel(numberStr + _operator);

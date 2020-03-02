@@ -59,6 +59,10 @@ namespace CalculatorWPF
                         case OperationStruct.Operation.Divide:
                             results[results.Count - 1] /= numberDouble;
                             break;
+
+                        case OperationStruct.Operation.Power:
+                            results[results.Count - 1] = Math.Pow(results[results.Count - 1], numberDouble);
+                            break;
                     }
 
                     operations[operations.Count - 1] = newOperationStruct;
@@ -82,6 +86,10 @@ namespace CalculatorWPF
                         case OperationStruct.Operation.Divide:
                             results[results.Count - 1] /= numberDouble;
                         break;
+
+                        case OperationStruct.Operation.Power:
+                            results[results.Count - 1] = Math.Pow(results[results.Count - 1], numberDouble);
+                            break;
                     }
 
                    
@@ -106,6 +114,10 @@ namespace CalculatorWPF
 
                             case OperationStruct.Operation.Divide:
                                 results[results.Count - 2] /= results[results.Count - 1];
+                                break;
+
+                            case OperationStruct.Operation.Power:
+                                results[results.Count - 2] = Math.Pow(results[results.Count - 2], results[results.Count - 1]);
                                 break;
                         }
 

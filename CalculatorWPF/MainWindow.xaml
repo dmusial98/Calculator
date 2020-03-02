@@ -26,7 +26,7 @@
         <Button x:Name ="Button_5" Content="5" HorizontalAlignment="Left" VerticalAlignment="Top" Width="50" Height="45" RenderTransformOrigin="-0.661,-1.591" Margin="100,286,0,0" Click="Button_5_click"/>
         <Button x:Name ="Button_6" Content="6" HorizontalAlignment="Left" Margin="150,286,0,0" VerticalAlignment="Top" Width="50" Height="45" Click="Button_6_click"/>
         <Button x:Name ="Button_minus" Content="-" HorizontalAlignment="Left" Margin="200,286,0,0" VerticalAlignment="Top" Width="50" Height="45" RenderTransformOrigin="2.592,-1.43" Click="Button_minus_click"/>
-        <Button x:Name ="Button_x_y" Content="x^y" HorizontalAlignment="Left" Margin="0,242,0,0" VerticalAlignment="Top" Width="50" Height="44" RenderTransformOrigin="2.592,-1.43"/>
+        <Button x:Name ="Button_x_y" Content="x^y" HorizontalAlignment="Left" Margin="0,242,0,0" VerticalAlignment="Top" Width="50" Height="44" RenderTransformOrigin="2.592,-1.43" Click="Button_pow_click"/>
         <Button x:Name ="Button_7" Content="7" HorizontalAlignment="Left" Margin="50,242,0,0" VerticalAlignment="Top" Width="50" Height="44" RenderTransformOrigin="2.592,-1.43" Click="Button_7_click"/>
         <Button x:Name ="Button_8" Content="8" HorizontalAlignment="Left" Margin="100,242,0,0" VerticalAlignment="Top" Width="50" Height="44" RenderTransformOrigin="2.592,-1.43" Click="Button_8_click"/>
         <Button x:Name ="Button_9" Content="9" HorizontalAlignment="Left" Margin="150,242,0,0" VerticalAlignment="Top" Width="50" Height="44" RenderTransformOrigin="2.592,-1.43" Click="Button_9_click"/>

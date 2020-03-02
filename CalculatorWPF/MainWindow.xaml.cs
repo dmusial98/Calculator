@@ -53,6 +53,10 @@ namespace CalculatorWPF
         {
             controler.operationButtonClicked(resultLabelStr.ToString(), new OperationStruct(OperationStruct.Operation.Divide));
         }
+        private void Button_pow_click(object sender, RoutedEventArgs e)
+        {
+            controler.operationButtonClicked(resultLabelStr.ToString(), new OperationStruct(OperationStruct.Operation.Power));
+        }
 
         private void Button_equals_click(object sender, RoutedEventArgs e)
         {
