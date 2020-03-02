@@ -92,36 +92,69 @@ namespace CalculatorWPF
                             break;
                     }
 
-                   
+
 
                     if (operations.Count > 1)
                     {
-                        operations.RemoveAt(operations.Count - 1); //deleting last operator
-
-                        switch (operations[operations.Count - 1].operation)
+                        if (newOperationStruct.priority <= operations[operations.Count - 2].priority)
                         {
-                            case OperationStruct.Operation.Add:
-                                results[results.Count - 2] += results[results.Count - 1];
-                                break;
+                            operations.RemoveAt(operations.Count - 1); //deleting last operator
 
-                            case OperationStruct.Operation.Subtract:
-                                results[results.Count - 2] -= results[results.Count - 1];
-                                break;
+                            if (operations[operations.Count - 1].priority >= newOperationStruct.priority)
+                            {
+                                switch (operations[operations.Count - 1].operation)
+                                {
+                                    case OperationStruct.Operation.Add:
+                                        results[results.Count - 2] += results[results.Count - 1];
+                                        break;
 
-                            case OperationStruct.Operation.Multiply:
-                                results[results.Count - 2] *= results[results.Count - 1];
-                                break;
+                                    case OperationStruct.Operation.Subtract:
+                                        results[results.Count - 2] -= results[results.Count - 1];
+                                        break;
 
-                            case OperationStruct.Operation.Divide:
-                                results[results.Count - 2] /= results[results.Count - 1];
-                                break;
+                                    case OperationStruct.Operation.Multiply:
+                                        results[results.Count - 2] *= results[results.Count - 1];
+                                        break;
 
-                            case OperationStruct.Operation.Power:
-                                results[results.Count - 2] = Math.Pow(results[results.Count - 2], results[results.Count - 1]);
-                                break;
+                                    case OperationStruct.Operation.Divide:
+                                        results[results.Count - 2] /= results[results.Count - 1];
+                                        break;
+
+                                    case OperationStruct.Operation.Power:
+                                        results[results.Count - 2] = Math.Pow(results[results.Count - 2], results[results.Count - 1]);
+                                        break;
+                                }
+
+                                results.RemoveAt(results.Count - 1);
+                            }
+                            else
+                            {
+                                switch (newOperationStruct.operation)
+                                {
+                                    case OperationStruct.Operation.Add:
+                                        results[results.Count - 1] += numberDouble;
+                                        break;
+
+                                    case OperationStruct.Operation.Subtract:
+                                        results[results.Count - 1] -= numberDouble;
+                                        break;
+
+                                    case OperationStruct.Operation.Multiply:
+                                        results[results.Count - 1] *= numberDouble;
+                                        break;
+
+                                    case OperationStruct.Operation.Divide:
+                                        results[results.Count - 1] /= numberDouble;
+                                        break;
+
+                                    case OperationStruct.Operation.Power:
+                                        results[results.Count - 1] = Math.Pow(results[results.Count - 2], numberDouble);
+                                        break;
+                                }
+
+                                results.RemoveAt(results.Count - 1);
+                            }
                         }
-
-                        results.RemoveAt(results.Count - 1);
                     }
 
                     operations[operations.Count - 1] = newOperationStruct;
