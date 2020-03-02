@@ -148,7 +148,7 @@ namespace CalculatorWPF
                                         break;
 
                                     case OperationStruct.Operation.Power:
-                                        results[results.Count - 1] = Math.Pow(results[results.Count - 2], numberDouble);
+                                        results[results.Count - 1] = Math.Pow(results[results.Count - 1], numberDouble);
                                         break;
                                 }
 
@@ -157,6 +157,38 @@ namespace CalculatorWPF
                         }
                     }
 
+                    if(operations.Count > 1)
+                    {
+                        if(operations[operations.Count - 2].priority == newOperationStruct.priority)
+                        {
+                            operations.RemoveAt(operations.Count - 1);
+
+                            switch (operations[operations.Count - 1].operation)
+                            {
+                                case OperationStruct.Operation.Add:
+                                    results[results.Count - 2] += results[results.Count - 1];
+                                    break;
+
+                                case OperationStruct.Operation.Subtract:
+                                    results[results.Count - 2] -= results[results.Count - 1];
+                                    break;
+
+                                case OperationStruct.Operation.Multiply:
+                                    results[results.Count - 2] *= results[results.Count - 1];
+                                    break;
+
+                                case OperationStruct.Operation.Divide:
+                                    results[results.Count - 2] /= results[results.Count - 1];
+                                    break;
+
+                                case OperationStruct.Operation.Power:
+                                    results[results.Count - 2] = Math.Pow(results[results.Count - 2], results[results.Count - 1]);
+                                    break;
+                            }
+
+                            results.RemoveAt(results.Count - 1);
+                        }
+                    }
                     operations[operations.Count - 1] = newOperationStruct;
                 }
                 else
