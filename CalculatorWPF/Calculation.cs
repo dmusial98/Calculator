@@ -14,7 +14,10 @@ namespace CalculatorWPF
         List<Double> results = new List<Double>();
         List<OperationStruct> operations = new List<OperationStruct>();
 
-        bool isFirstOperation = true;        
+        bool isFirstOperation = true;
+
+        double firstArgument;
+
 
         public Calculation(Controler con)
         {
@@ -42,56 +45,17 @@ namespace CalculatorWPF
             {
                 if(newOperationStruct.priority == operations[operations.Count - 1].priority)
                 {
-                    switch (operations[operations.Count - 1].operation)
-                    {
-                        case OperationStruct.Operation.Add:
-                            results[results.Count - 1] += numberDouble;
-                            break;
-
-                        case OperationStruct.Operation.Subtract:
-                            results[results.Count - 1] -= numberDouble;
-                            break;
-
-                        case OperationStruct.Operation.Multiply:
-                            results[results.Count - 1] *= numberDouble;
-                            break;
-
-                        case OperationStruct.Operation.Divide:
-                            results[results.Count - 1] /= numberDouble;
-                            break;
-
-                        case OperationStruct.Operation.Power:
-                            results[results.Count - 1] = Math.Pow(results[results.Count - 1], numberDouble);
-                            break;
-                    }
+                    firstArgument = results[results.Count - 1];
+                    doOperation(operations[operations.Count - 1], ref firstArgument, numberDouble);
+                    results[results.Count - 1] = firstArgument;
 
                     operations[operations.Count - 1] = newOperationStruct;
                 }
                 else if((newOperationStruct.priority < operations[operations.Count - 1].priority))
                 {
-                    switch(operations[operations.Count - 1].operation)
-                    {
-                        case OperationStruct.Operation.Add:
-                            results[results.Count - 1] += numberDouble;
-                        break;
-
-                        case OperationStruct.Operation.Subtract:
-                            results[results.Count - 1] -= numberDouble;
-                        break;
-
-                        case OperationStruct.Operation.Multiply:
-                            results[results.Count - 1] *= numberDouble;
-                        break;
-
-                        case OperationStruct.Operation.Divide:
-                            results[results.Count - 1] /= numberDouble;
-                        break;
-
-                        case OperationStruct.Operation.Power:
-                            results[results.Count - 1] = Math.Pow(results[results.Count - 1], numberDouble);
-                            break;
-                    }
-
+                    firstArgument = results[results.Count - 1];
+                    doOperation(operations[operations.Count - 1], ref firstArgument, numberDouble);
+                    results[results.Count - 1] = firstArgument;
 
 
                     if (operations.Count > 1)
@@ -102,55 +66,17 @@ namespace CalculatorWPF
 
                             if (operations[operations.Count - 1].priority >= newOperationStruct.priority)
                             {
-                                switch (operations[operations.Count - 1].operation)
-                                {
-                                    case OperationStruct.Operation.Add:
-                                        results[results.Count - 2] += results[results.Count - 1];
-                                        break;
-
-                                    case OperationStruct.Operation.Subtract:
-                                        results[results.Count - 2] -= results[results.Count - 1];
-                                        break;
-
-                                    case OperationStruct.Operation.Multiply:
-                                        results[results.Count - 2] *= results[results.Count - 1];
-                                        break;
-
-                                    case OperationStruct.Operation.Divide:
-                                        results[results.Count - 2] /= results[results.Count - 1];
-                                        break;
-
-                                    case OperationStruct.Operation.Power:
-                                        results[results.Count - 2] = Math.Pow(results[results.Count - 2], results[results.Count - 1]);
-                                        break;
-                                }
-
+                                firstArgument = results[results.Count - 2];
+                                doOperation(operations[operations.Count - 1], ref firstArgument, results[results.Count - 1]);
+                                results[results.Count - 2] = firstArgument;
+                             
                                 results.RemoveAt(results.Count - 1);
                             }
                             else
                             {
-                                switch (newOperationStruct.operation)
-                                {
-                                    case OperationStruct.Operation.Add:
-                                        results[results.Count - 1] += numberDouble;
-                                        break;
-
-                                    case OperationStruct.Operation.Subtract:
-                                        results[results.Count - 1] -= numberDouble;
-                                        break;
-
-                                    case OperationStruct.Operation.Multiply:
-                                        results[results.Count - 1] *= numberDouble;
-                                        break;
-
-                                    case OperationStruct.Operation.Divide:
-                                        results[results.Count - 1] /= numberDouble;
-                                        break;
-
-                                    case OperationStruct.Operation.Power:
-                                        results[results.Count - 1] = Math.Pow(results[results.Count - 1], numberDouble);
-                                        break;
-                                }
+                                firstArgument = results[results.Count - 1];
+                                doOperation(newOperationStruct, ref firstArgument, numberDouble);
+                                results[results.Count - 1] = firstArgument;
 
                                 results.RemoveAt(results.Count - 1);
                             }
@@ -163,29 +89,10 @@ namespace CalculatorWPF
                         {
                             operations.RemoveAt(operations.Count - 1);
 
-                            switch (operations[operations.Count - 1].operation)
-                            {
-                                case OperationStruct.Operation.Add:
-                                    results[results.Count - 2] += results[results.Count - 1];
-                                    break;
-
-                                case OperationStruct.Operation.Subtract:
-                                    results[results.Count - 2] -= results[results.Count - 1];
-                                    break;
-
-                                case OperationStruct.Operation.Multiply:
-                                    results[results.Count - 2] *= results[results.Count - 1];
-                                    break;
-
-                                case OperationStruct.Operation.Divide:
-                                    results[results.Count - 2] /= results[results.Count - 1];
-                                    break;
-
-                                case OperationStruct.Operation.Power:
-                                    results[results.Count - 2] = Math.Pow(results[results.Count - 2], results[results.Count - 1]);
-                                    break;
-                            }
-
+                            firstArgument = results[results.Count - 2];
+                            doOperation(operations[operations.Count - 1], ref firstArgument, results[results.Count - 1]);
+                            results[results.Count - 2] = firstArgument;
+             
                             results.RemoveAt(results.Count - 1);
                         }
                     }
@@ -196,16 +103,11 @@ namespace CalculatorWPF
                     results.Add(numberDouble);
                     operations.Add(newOperationStruct);
                 }
-
-                
-
             }
-
-
             return results[results.Count - 1];
         }
 
-        private void doOperation(OperationStruct operationStruct, ref double firstArgument, ref double secondArgument)
+        private void doOperation(OperationStruct operationStruct, ref double firstArgument, double secondArgument)
         {
             switch(operationStruct.operation)
             {
@@ -226,11 +128,10 @@ namespace CalculatorWPF
                     break;
 
                 case OperationStruct.Operation.Power:
-                    results[results.Count - 1] = Math.Pow(firstArgument, secondArgument);
+                    firstArgument = Math.Pow(firstArgument, secondArgument);
                     break;
             }
         }
-
     }
 }
 
