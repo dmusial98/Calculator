@@ -205,6 +205,32 @@ namespace CalculatorWPF
             return results[results.Count - 1];
         }
 
+        private void doOperation(OperationStruct operationStruct, ref double firstArgument, ref double secondArgument)
+        {
+            switch(operationStruct.operation)
+            {
+                case OperationStruct.Operation.Add:
+                    firstArgument += secondArgument;
+                    break;
+
+                case OperationStruct.Operation.Subtract:
+                    firstArgument -= secondArgument;
+                    break;
+
+                case OperationStruct.Operation.Multiply:
+                    firstArgument *= secondArgument;
+                    break;
+
+                case OperationStruct.Operation.Divide:
+                    firstArgument /= secondArgument;
+                    break;
+
+                case OperationStruct.Operation.Power:
+                    results[results.Count - 1] = Math.Pow(firstArgument, secondArgument);
+                    break;
+            }
+        }
+
     }
 }
 
