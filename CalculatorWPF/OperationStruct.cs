@@ -39,7 +39,8 @@ namespace CalculatorWPF
                 _priority = 3;
             else if (oper == Operation.LeftBracket || oper == Operation.RightBracket)
                 _priority = 4;
-            else if (oper == Operation.Logarithm || oper == Operation.NaturalLogarithm || oper == Operation.Sinus || oper == Operation.Cosinus || oper == Operation.Inverse)
+            else if (oper == Operation.Logarithm || oper == Operation.NaturalLogarithm || 
+                oper == Operation.Sinus || oper == Operation.Cosinus || oper == Operation.Inverse)
                 _priority = 5;
             else
                 _priority = 0;

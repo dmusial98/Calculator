@@ -236,5 +236,7 @@ namespace CalculatorWPF
             historyLabelStr.Append(number.ToString());
             Label_history.Content = historyLabelStr.ToString();
         }
+
+    
     }
 }

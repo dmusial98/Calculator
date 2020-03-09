@@ -29,25 +29,30 @@ namespace CalculatorWPF
             switch (operationStruct.operation)
             {
                 case OperationStruct.Operation.Add :
-                    _operator = " + ";
+                    _operator = "+";
                     break;
 
                 case OperationStruct.Operation.Subtract :
-                    _operator = " - ";
+                    _operator = "-";
                     break;
 
                 case OperationStruct.Operation.Multiply :
-                    _operator = " x ";
+                    _operator = "x";
                     break;
 
                 case OperationStruct.Operation.Divide :
-                    _operator = " / ";
+                    _operator = "/";
                     break;
 
                 case OperationStruct.Operation.Power :
-                    _operator = " ^ ";
+                    _operator = "^";
                     break;
-
+                case OperationStruct.Operation.LeftBracket:
+                    _operator = "(";
+                    break;
+                case OperationStruct.Operation.RightBracket:
+                    _operator = ")";
+                    break;
             }
 
             window.appendToHistorylabel(numberStr + _operator);

@@ -43,6 +43,7 @@ namespace CalculatorWPF
             }
             else  //when calculator has second or later operator
             {
+                //the same priority
                 if(newOperationStruct.priority == operations[operations.Count - 1].priority)
                 {
                     firstArgument = results[results.Count - 1];
@@ -51,6 +52,7 @@ namespace CalculatorWPF
 
                     operations[operations.Count - 1] = newOperationStruct;
                 }
+                    //less priority
                 else if((newOperationStruct.priority < operations[operations.Count - 1].priority))
                 {
                     firstArgument = results[results.Count - 1];
@@ -98,6 +100,7 @@ namespace CalculatorWPF
                     }
                     operations[operations.Count - 1] = newOperationStruct;
                 }
+                    //higher priority
                 else
                 {
                     results.Add(numberDouble);
