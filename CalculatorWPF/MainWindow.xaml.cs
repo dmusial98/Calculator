@@ -63,6 +63,16 @@ namespace CalculatorWPF
 
         }
 
+        private void Button_left_bracket_click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Button_right_bracket_click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
 
         private void Button_0_click(object sender, RoutedEventArgs e)
         {

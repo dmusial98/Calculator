@@ -31,8 +31,8 @@
         <Button x:Name ="Button_8" Content="8" HorizontalAlignment="Left" Margin="100,242,0,0" VerticalAlignment="Top" Width="50" Height="44" RenderTransformOrigin="2.592,-1.43" Click="Button_8_click"/>
         <Button x:Name ="Button_9" Content="9" HorizontalAlignment="Left" Margin="150,242,0,0" VerticalAlignment="Top" Width="50" Height="44" RenderTransformOrigin="2.592,-1.43" Click="Button_9_click"/>
         <Button x:Name ="Button_X" Content="X" HorizontalAlignment="Left" Margin="200,242,0,0" VerticalAlignment="Top" Width="50" Height="44" RenderTransformOrigin="2.592,-1.43" Click="Button_multiply_click"/>
-        <Button x:Name ="Button_left_bracket" Content="(" HorizontalAlignment="Left" Margin="0,198,0,0" VerticalAlignment="Top" Width="50" Height="44" RenderTransformOrigin="2.592,-1.43"/>
-        <Button x:Name ="Button_right_bracket" Content=")" HorizontalAlignment="Left" Margin="50,198,0,0" VerticalAlignment="Top" Width="50" Height="44" RenderTransformOrigin="2.592,-1.43"/>
+        <Button x:Name ="Button_left_bracket" Content="(" HorizontalAlignment="Left" Margin="0,198,0,0" VerticalAlignment="Top" Width="50" Height="44" RenderTransformOrigin="2.592,-1.43" Click="Button_left_bracket_click"/>
+        <Button x:Name ="Button_right_bracket" Content=")" HorizontalAlignment="Left" Margin="50,198,0,0" VerticalAlignment="Top" Width="50" Height="44" RenderTransformOrigin="2.592,-1.43" Click="Button_right_bracket_click"/>
         <Button x:Name ="Button_pi" Content="Pi" HorizontalAlignment="Left" Margin="100,198,0,0" VerticalAlignment="Top" Width="50" Height="44" RenderTransformOrigin="2.592,-1.43"/>
         <Button x:Name="Button_e" Content="e" HorizontalAlignment="Left" Margin="150,198,0,0" VerticalAlignment="Top" Width="50" Height="44" RenderTransformOrigin="2.592,-1.43"/>
         <Button x:Name ="Buton_divide" Content="/" HorizontalAlignment="Left" Margin="200,198,0,0" VerticalAlignment="Top" Width="50" Height="44" RenderTransformOrigin="2.592,-1.43" Click="Button_divide_click"/>
