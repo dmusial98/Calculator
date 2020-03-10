@@ -11,130 +11,191 @@ namespace CalculatorWPF
         //reference to controler
         Controler controler;
 
-        List<Double> results = new List<Double>();
-        List<OperationStruct> operations = new List<OperationStruct>();
-
-        bool isFirstOperation = true;
-
-        double firstArgument;
-
+        List<Operation> operations = new List<Operation>();
 
         public Calculation(Controler con)
         {
-            controler = con;
-            results.Add(0.0);
-            operations.Add(new OperationStruct(OperationStruct.Operation.None));
+
         }
 
-        public double Count(string numberStr, OperationStruct newOperationStruct)
+        public double Count(string numberString, MathOperator newOperator)
         {
             double numberDouble;
 
-            if (!Double.TryParse(numberStr, out numberDouble))
+            if (!Double.TryParse(numberString, out numberDouble))
             {
-                return results[results.Count - 1];
+                //throw an exception
+
+                return 0.0;
             }
 
-            if (isFirstOperation)
+            if (operations.Count == 0)
             {
-                results[results.Count - 1] = numberDouble;
-                operations[operations.Count - 1] = newOperationStruct;
-                isFirstOperation = false;
+                operations.Add(new Operation(newOperator, numberDouble));
+                return numberDouble;
             }
-            else  //when calculator has second or later operator
+            else
             {
                 //the same priority
-                if(newOperationStruct.priority == operations[operations.Count - 1].priority)
+                if(operations.Last().HasTheSamePriority(newOperator))
                 {
-                    firstArgument = results[results.Count - 1];
-                    doOperation(operations[operations.Count - 1], ref firstArgument, numberDouble);
-                    results[results.Count - 1] = firstArgument;
+                    operations.Last().secondArgument = numberDouble;
+                    double result = operations.Last().DoOperation();
+                    operations.Last().setMathOperator(newOperator);
 
-                    operations[operations.Count - 1] = newOperationStruct;
+                    return result;
                 }
-                    //less priority
-                else if((newOperationStruct.priority < operations[operations.Count - 1].priority))
+                //lower priority old operator's
+                else if(operations.Last().HasLowerPriority(newOperator))
                 {
-                    firstArgument = results[results.Count - 1];
-                    doOperation(operations[operations.Count - 1], ref firstArgument, numberDouble);
-                    results[results.Count - 1] = firstArgument;
-
-
-                    if (operations.Count > 1)
-                    {
-                        if (newOperationStruct.priority <= operations[operations.Count - 2].priority)
-                        {
-                            operations.RemoveAt(operations.Count - 1); //deleting last operator
-
-                            if (operations[operations.Count - 1].priority >= newOperationStruct.priority)
-                            {
-                                firstArgument = results[results.Count - 2];
-                                doOperation(operations[operations.Count - 1], ref firstArgument, results[results.Count - 1]);
-                                results[results.Count - 2] = firstArgument;
-                             
-                                results.RemoveAt(results.Count - 1);
-                            }
-                            else
-                            {
-                                firstArgument = results[results.Count - 1];
-                                doOperation(newOperationStruct, ref firstArgument, numberDouble);
-                                results[results.Count - 1] = firstArgument;
-
-                                results.RemoveAt(results.Count - 1);
-                            }
-                        }
-                    }
-
-                    if(operations.Count > 1)
-                    {
-                        if(operations[operations.Count - 2].priority == newOperationStruct.priority)
-                        {
-                            operations.RemoveAt(operations.Count - 1);
-
-                            firstArgument = results[results.Count - 2];
-                            doOperation(operations[operations.Count - 1], ref firstArgument, results[results.Count - 1]);
-                            results[results.Count - 2] = firstArgument;
-             
-                            results.RemoveAt(results.Count - 1);
-                        }
-                    }
-                    operations[operations.Count - 1] = newOperationStruct;
+                    operations.Add(new Operation(newOperator, numberDouble));
+                    return numberDouble;
                 }
-                    //higher priority
+                //higher priority old operator's
                 else
                 {
-                    results.Add(numberDouble);
-                    operations.Add(newOperationStruct);
+                    operations.Last().secondArgument = numberDouble;
+                     
+                    
+                    while(operations.Last().HasHigherPriority(newOperator) && operations.Count != 1)
+                    {
+                        operations.Last().DoOperation();
+
+                        operations[operations.Count - 2].secondArgument = operations.Last().firstArgument;
+                        operations.RemoveAt(operations.Count - 1);
+                    }
+
+                    operations.Last().DoOperation();
+                    operations.Last().setMathOperator(newOperator);
+
+                    return operations.Last().firstArgument ?? Double.MinValue;
                 }
             }
-            return results[results.Count - 1];
+          
         }
 
-        private void doOperation(OperationStruct operationStruct, ref double firstArgument, double secondArgument)
+        public void LeftBracketService()
         {
-            switch(operationStruct.operation)
-            {
-                case OperationStruct.Operation.Add:
-                    firstArgument += secondArgument;
-                    break;
-
-                case OperationStruct.Operation.Subtract:
-                    firstArgument -= secondArgument;
-                    break;
-
-                case OperationStruct.Operation.Multiply:
-                    firstArgument *= secondArgument;
-                    break;
-
-                case OperationStruct.Operation.Divide:
-                    firstArgument /= secondArgument;
-                    break;
-
-                case OperationStruct.Operation.Power:
-                    firstArgument = Math.Pow(firstArgument, secondArgument);
-                    break;
-            }
+            operations.Add(new Operation());
         }
+
+        public double RightBracketService()
+        {
+
+
+            return 0.0;
+        }
+
+        //public double Count(string numberStr, OperationStruct newOperationStruct)
+        //{
+        //    double numberDouble;
+
+        //    if (!Double.TryParse(numberStr, out numberDouble))
+        //    {
+        //        return results[results.Count - 1];
+        //    }
+
+        //    if (isFirstOperation)
+        //    {
+        //        results[results.Count - 1] = numberDouble;
+        //        operations[operations.Count - 1] = newOperationStruct;
+        //        isFirstOperation = false;
+        //    }
+        //    else  //when calculator has second or later operator
+        //    {
+        //        //the same priority
+        //        if(newOperationStruct.priority == operations[operations.Count - 1].priority)
+        //        {
+        //            firstArgument = results[results.Count - 1];
+        //            doOperation(operations[operations.Count - 1], ref firstArgument, numberDouble);
+        //            results[results.Count - 1] = firstArgument;
+
+        //            operations[operations.Count - 1] = newOperationStruct;
+        //        }
+        //            //less priority
+        //        else if((newOperationStruct.priority < operations[operations.Count - 1].priority))
+        //        {
+        //            firstArgument = results[results.Count - 1];
+        //            doOperation(operations[operations.Count - 1], ref firstArgument, numberDouble);
+        //            results[results.Count - 1] = firstArgument;
+
+
+        //            if (operations.Count > 1)
+        //            {
+        //                if (newOperationStruct.priority <= operations[operations.Count - 2].priority)
+        //                {
+        //                    operations.RemoveAt(operations.Count - 1); //deleting last operator
+
+        //                    if (operations[operations.Count - 1].priority >= newOperationStruct.priority)
+        //                    {
+        //                        firstArgument = results[results.Count - 2];
+        //                        doOperation(operations[operations.Count - 1], ref firstArgument, results[results.Count - 1]);
+        //                        results[results.Count - 2] = firstArgument;
+
+        //                        results.RemoveAt(results.Count - 1);
+        //                    }
+        //                    else
+        //                    {
+        //                        firstArgument = results[results.Count - 1];
+        //                        doOperation(newOperationStruct, ref firstArgument, numberDouble);
+        //                        results[results.Count - 1] = firstArgument;
+
+        //                        results.RemoveAt(results.Count - 1);
+        //                    }
+        //                }
+        //            }
+
+        //            if(operations.Count > 1)
+        //            {
+        //                if(operations[operations.Count - 2].priority == newOperationStruct.priority)
+        //                {
+        //                    operations.RemoveAt(operations.Count - 1);
+
+        //                    firstArgument = results[results.Count - 2];
+        //                    doOperation(operations[operations.Count - 1], ref firstArgument, results[results.Count - 1]);
+        //                    results[results.Count - 2] = firstArgument;
+
+        //                    results.RemoveAt(results.Count - 1);
+        //                }
+        //            }
+        //            operations[operations.Count - 1] = newOperationStruct;
+        //        }
+        //            //higher priority
+        //        else
+        //        {
+        //            results.Add(numberDouble);
+        //            operations.Add(newOperationStruct);
+        //        }
+        //    }
+        //    return results[results.Count - 1];
+        //}
+
+        //private void doOperation(OperationStruct operationStruct, ref double firstArgument, double secondArgument)
+        //{
+        //    switch(operationStruct.operation)
+        //    {
+        //        case OperationStruct.Operation.Add:
+        //            firstArgument += secondArgument;
+        //            break;
+
+        //        case OperationStruct.Operation.Subtract:
+        //            firstArgument -= secondArgument;
+        //            break;
+
+        //        case OperationStruct.Operation.Multiply:
+        //            firstArgument *= secondArgument;
+        //            break;
+
+        //        case OperationStruct.Operation.Divide:
+        //            firstArgument /= secondArgument;
+        //            break;
+
+        //        case OperationStruct.Operation.Power:
+        //            firstArgument = Math.Pow(firstArgument, secondArgument);
+        //            break;
+        //    }
+        //}
+        
     }
 }
 

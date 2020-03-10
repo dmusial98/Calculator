@@ -75,7 +75,8 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="OperationStruct.cs" />
+    <Compile Include="Operation.cs" />
+    <Compile Include="MathOperator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
