@@ -14,9 +14,7 @@ namespace CalculatorWPF
         List<Operation> operations = new List<Operation>();
 
         public Calculation(Controler con)
-        {
-
-        }
+        { }
 
         public double Count(string numberString, MathOperator newOperator)
         {
@@ -34,7 +32,7 @@ namespace CalculatorWPF
                 operations.Add(new Operation(newOperator, numberDouble));
                 return numberDouble;
             }
-            else
+            else //operations.Count > 0
             {
                 //the same priority
                 if(operations.Last().HasTheSamePriority(newOperator))
@@ -55,17 +53,28 @@ namespace CalculatorWPF
                 else
                 {
                     operations.Last().secondArgument = numberDouble;
-                     
-                    
-                    while(operations.Last().HasHigherPriority(newOperator) && operations.Count != 1)
-                    {
-                        operations.Last().DoOperation();
+                    operations.Last().DoOperation();
 
-                        operations[operations.Count - 2].secondArgument = operations.Last().firstArgument;
-                        operations.RemoveAt(operations.Count - 1);
+                    while (operations.Last().HasHigherPriority(newOperator) && operations.Count != 1)
+                    {
+                        if (operations[operations.Count - 2].HasTheSamePriority(newOperator))
+                        {
+                            operations[operations.Count - 2].secondArgument = operations.Last().firstArgument;
+                            operations.RemoveAt(operations.Count - 1);
+                            operations.Last().DoOperation();
+                        }
+                        else if(operations[operations.Count - 2].HasLowerPriority(newOperator))
+                        {
+                            operations.Last().setMathOperator(newOperator);
+                        }
+                        else //operations[operations.Count - 2].HasHigherPriority(newOperator) == true
+                        {
+                            operations[operations.Count - 2].secondArgument = operations.Last().firstArgument;
+                            operations.RemoveAt(operations.Count - 1);
+                            operations.Last().DoOperation();
+                        }
                     }
 
-                    operations.Last().DoOperation();
                     operations.Last().setMathOperator(newOperator);
 
                     return operations.Last().firstArgument ?? Double.MinValue;
