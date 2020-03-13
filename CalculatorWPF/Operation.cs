@@ -35,6 +35,19 @@ namespace CalculatorWPF
         }
         private double? _secondArgument = null;
 
+        public bool IsInBrackets
+        {
+            get
+            {
+                return _IsInBrackets;
+            }
+            set
+            {
+                _IsInBrackets = value;
+            }
+        }
+        private bool _IsInBrackets = false;
+
         private MathOperator _mathOperator = null;
         //fields
 
@@ -45,7 +58,10 @@ namespace CalculatorWPF
             _firstArgument = firstArg;
         }
 
-        public Operation() { }
+        public Operation(bool IsInBrackets_ = false)
+        {
+            _IsInBrackets = IsInBrackets_;
+        }
         //constructors
 
         //seeters and getters

@@ -75,7 +75,7 @@ namespace CalculatorWPF
 
         private void Button_right_bracket_click(object sender, RoutedEventArgs e)
         {
-            controler.buttonRightBracketClicked();
+            controler.buttonRightBracketClicked(resultLabelStr.ToString());
         }
 
 

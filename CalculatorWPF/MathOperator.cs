@@ -14,8 +14,6 @@ namespace CalculatorWPF
             Subtract,
             Multiply,
             Divide,
-            LeftBracket,
-            RightBracket,
             Square,
             Power,
             Logarithm,
@@ -30,18 +28,16 @@ namespace CalculatorWPF
         {
             _mathOperator = oper;
 
-          
+
             if (oper == OperatorEnum.Add || oper == OperatorEnum.Subtract || oper == OperatorEnum.None)
                 _priority = 1;
             else if (oper == OperatorEnum.Multiply || oper == OperatorEnum.Divide)
                 _priority = 2;
             else if (oper == OperatorEnum.Power || oper == OperatorEnum.Square)
                 _priority = 3;
-            else if (oper == OperatorEnum.LeftBracket || oper ==OperatorEnum.RightBracket)
-                _priority = 4;
-            else if (oper == OperatorEnum.Logarithm || oper == OperatorEnum.NaturalLogarithm || 
+            else if (oper == OperatorEnum.Logarithm || oper == OperatorEnum.NaturalLogarithm ||
                 oper == OperatorEnum.Sinus || oper == OperatorEnum.Cosinus || oper == OperatorEnum.Inverse)
-                _priority = 5;
+                _priority = 4;
             else
                 _priority = 0;
         }

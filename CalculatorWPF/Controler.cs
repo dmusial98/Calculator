@@ -91,12 +91,14 @@ namespace CalculatorWPF
 
         public void buttonLeftBracketClicked()
         {
-
+            model.LeftBracketService();
+            window.appendToHistorylabel("(");
         }
 
-        public void buttonRightBracketClicked()
+        public void buttonRightBracketClicked(string numberString)
         {
-
+            window.setResultLabel(model.RightBracketService(numberString));
+            window.appendToHistorylabel(numberString + ")");
         }
 
         public void buttonEqualsClicked()
