@@ -33,13 +33,17 @@ namespace CalculatorWPF
                         operations.Last().setMathOperator(newOperator);
                     }
                     else
-                    //operations[operations.Count - 2].hasTheSamePriority() || operations[operations.Count - 2].hasHigherPriority()
+                    //operations[operations.Count - 2].hasTheSamePriority(newOperator) || operations[operations.Count - 2].hasHigherPriority(newOperator)
                     {
-                        operations[operations.Count - 2].secondArgument = operations.Last().firstArgument;
-                        operations.RemoveAt(operations.Count - 1);
-                        operations.Last().DoOperation();
-                        operations.Last().setMathOperator(newOperator);
+                        while (operations.Count != 1 && (operations[operations.Count - 2].HasTheSamePriority(newOperator)
+                            || operations[operations.Count - 2].HasHigherPriority(newOperator)) && !operations[operations.Count - 2].IsInBrackets)
+                        {
+                            operations[operations.Count - 2].secondArgument = operations.Last().firstArgument;
+                            operations.RemoveAt(operations.Count - 1);
+                            operations.Last().DoOperation();
+                        }
                     }
+                    operations.Last().setMathOperator(newOperator);
                 }
 
                 return operations.Last().firstArgument ?? Double.MinValue;
