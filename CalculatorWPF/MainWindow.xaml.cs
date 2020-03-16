@@ -37,30 +37,25 @@ namespace CalculatorWPF
         private void Button_plus_click(object sender, RoutedEventArgs e)
         {
             controler.buttonPlusClicked(resultLabelStr.ToString());
-            //controler.operationButtonClicked(resultLabelStr.ToString(), new Operation(MathOperator.OperatorEnum.Add));
         }
 
         private void Button_minus_click(object sender, RoutedEventArgs e)
         {
             controler.buttonMinusClicked(resultLabelStr.ToString());
-            //controler.operationButtonClicked(resultLabelStr.ToString(), new Operation(MathOperator.OperatorEnum.Subtract));
         }
 
         private void Button_multiply_click(object sender, RoutedEventArgs e)
         {
             controler.buttonMultiplyClicked(resultLabelStr.ToString());
-            //controler.operationButtonClicked(resultLabelStr.ToString(), new Operation(OperationStruct.Operation.Multiply));
         }
 
         private void Button_divide_click(object sender, RoutedEventArgs e)
         {
             controler.buttonDivideClicked(resultLabelStr.ToString());
-            //controler.operationButtonClicked(resultLabelStr.ToString(), new Operation(OperationStruct.Operation.Divide));
         }
         private void Button_pow_click(object sender, RoutedEventArgs e)
         {
             controler.buttonPowerClicked(resultLabelStr.ToString());
-            //controler.operationButtonClicked(resultLabelStr.ToString(), new Operation(OperationStruct.Operation.Power));
         }
 
         private void Button_equals_click(object sender, RoutedEventArgs e)
