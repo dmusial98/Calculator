@@ -67,6 +67,11 @@ namespace CalculatorWPF
 
         }
 
+        public void ClearButtonClicked()
+        {
+            model.ClearOperations();
+        }
+
     }
 
 

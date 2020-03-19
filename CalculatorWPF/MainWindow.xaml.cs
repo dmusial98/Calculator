@@ -33,6 +33,8 @@ namespace CalculatorWPF
         StringBuilder resultLabelStr = new StringBuilder("0");
         StringBuilder historyLabelStr = new StringBuilder("");
 
+        bool isResultLabelEmpty = true;
+            
         //buttons
         private void Button_plus_click(object sender, RoutedEventArgs e)
         {
@@ -84,11 +86,7 @@ namespace CalculatorWPF
             {
 
             }
-            else if(resultLabelStr.Length == 1)
-            {
-                resultLabelStr.Append("0");
-            }
-            else if(resultLabelStr.Length > 1)
+            else if(resultLabelStr.Length >= 1)
             {
                 resultLabelStr.Append("0");
             }
@@ -102,6 +100,8 @@ namespace CalculatorWPF
                 resultLabelStr.Clear();
             
             resultLabelStr.Append("1");
+
+            isResultLabelEmpty = false;
             Label_result.Content = resultLabelStr.ToString();
         }
 
@@ -111,6 +111,8 @@ namespace CalculatorWPF
                 resultLabelStr.Clear();
 
             resultLabelStr.Append("2");
+
+            isResultLabelEmpty = false;
             Label_result.Content = resultLabelStr.ToString();
         }
 
@@ -120,6 +122,8 @@ namespace CalculatorWPF
                 resultLabelStr.Clear();
 
             resultLabelStr.Append("3");
+
+            isResultLabelEmpty = false;
             Label_result.Content = resultLabelStr.ToString();
         }
 
@@ -129,6 +133,8 @@ namespace CalculatorWPF
                 resultLabelStr.Clear();
 
             resultLabelStr.Append("4");
+
+            isResultLabelEmpty = false;
             Label_result.Content = resultLabelStr.ToString();
         }
 
@@ -138,6 +144,8 @@ namespace CalculatorWPF
                 resultLabelStr.Clear();
 
             resultLabelStr.Append("5");
+
+            isResultLabelEmpty = false;
             Label_result.Content = resultLabelStr.ToString();
         }
 
@@ -147,6 +155,8 @@ namespace CalculatorWPF
                 resultLabelStr.Clear();
 
             resultLabelStr.Append("6");
+
+            isResultLabelEmpty = false;
             Label_result.Content = resultLabelStr.ToString();
         }
 
@@ -156,6 +166,8 @@ namespace CalculatorWPF
                 resultLabelStr.Clear();
 
             resultLabelStr.Append("7");
+
+            isResultLabelEmpty = false;
             Label_result.Content = resultLabelStr.ToString();
         }
 
@@ -165,6 +177,8 @@ namespace CalculatorWPF
                 resultLabelStr.Clear();
 
             resultLabelStr.Append("8");
+
+            isResultLabelEmpty = false;
             Label_result.Content = resultLabelStr.ToString();
         }
 
@@ -174,6 +188,8 @@ namespace CalculatorWPF
                 resultLabelStr.Clear();
 
             resultLabelStr.Append("9");
+
+            isResultLabelEmpty = false;
             Label_result.Content = resultLabelStr.ToString();
         }
 
@@ -207,9 +223,20 @@ namespace CalculatorWPF
 
         private void Button_C_click(object sender, RoutedEventArgs e)
         {
-            resultLabelStr.Clear();
-            resultLabelStr.Append("0");
-            Label_result.Content = resultLabelStr.ToString();
+            if (!isResultLabelEmpty)
+            {
+                resultLabelStr.Clear();
+                resultLabelStr.Append("0");
+                Label_result.Content = resultLabelStr.ToString();
+                isResultLabelEmpty = true;
+            }
+            else
+                //historylabelString is Empty
+            {
+                historyLabelStr.Clear();
+                Label_history.Content = historyLabelStr.ToString();
+                controler.ClearButtonClicked();
+            }
         }
 
         private void Button_1_x_click(object sender, RoutedEventArgs e)

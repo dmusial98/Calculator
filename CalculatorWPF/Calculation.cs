@@ -13,6 +13,12 @@ namespace CalculatorWPF
 
         List<Operation> operations = new List<Operation>();
 
+        public void ClearOperations()
+        {
+            while (operations.Count != 0)
+                operations.RemoveAt(operations.Count - 1);
+        }
+
         public Calculation(Controler con)
         {
             controler = con;
@@ -153,8 +159,7 @@ namespace CalculatorWPF
             return operations.Last().firstArgument ?? Double.MinValue;
         }
         
-
-        void moveArgDown()
+        private void moveArgDown()
         {
             if (operations[operations.Count - 2].firstArgument != null)
                 operations[operations.Count - 2].secondArgument = operations.Last().firstArgument;
