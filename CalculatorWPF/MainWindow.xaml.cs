@@ -33,31 +33,36 @@ namespace CalculatorWPF
         StringBuilder resultLabelStr = new StringBuilder("0");
         StringBuilder historyLabelStr = new StringBuilder("");
 
-        bool isResultLabelEmpty = true;
+        public bool isResultLabelEmpty = true;
             
         //buttons
         private void Button_plus_click(object sender, RoutedEventArgs e)
         {
             controler.buttonPlusClicked(resultLabelStr.ToString());
+            isResultLabelEmpty = true;
         }
 
         private void Button_minus_click(object sender, RoutedEventArgs e)
         {
             controler.buttonMinusClicked(resultLabelStr.ToString());
+            isResultLabelEmpty = true;
         }
 
         private void Button_multiply_click(object sender, RoutedEventArgs e)
         {
             controler.buttonMultiplyClicked(resultLabelStr.ToString());
+            isResultLabelEmpty = true;
         }
 
         private void Button_divide_click(object sender, RoutedEventArgs e)
         {
             controler.buttonDivideClicked(resultLabelStr.ToString());
+            isResultLabelEmpty = true;
         }
         private void Button_pow_click(object sender, RoutedEventArgs e)
         {
             controler.buttonPowerClicked(resultLabelStr.ToString());
+            isResultLabelEmpty = true;
         }
 
         private void Button_equals_click(object sender, RoutedEventArgs e)
@@ -211,6 +216,7 @@ namespace CalculatorWPF
                 {
                     resultLabelStr.Clear();
                     resultLabelStr.Append("0");
+                    isResultLabelEmpty = true;
                 }
                 else
                 {
@@ -251,11 +257,6 @@ namespace CalculatorWPF
 
 
         //Labels
-        public void setResultlabel(string text)
-        {
-            Label_result.Content = text;
-        }
-
         public void setResultLabel(double text)
         {
             Label_result.Content = text;
@@ -268,12 +269,18 @@ namespace CalculatorWPF
             Label_history.Content = historyLabelStr.ToString();
         }
 
-        public void appendToHistoryLabel(Double number)
+        public void removeLastCharHistoryLabel()
         {
-            historyLabelStr.Append(number.ToString());
-            Label_history.Content = historyLabelStr.ToString();
+            historyLabelStr.Remove(historyLabelStr.Length - 1, 1);
         }
 
+        public char? getLastCharHistoryLabel()
+        {
+            if (historyLabelStr.ToString().Length != 0)
+                return historyLabelStr.ToString().Last();
+            else
+                return null;
+        }
     
     }
 }

@@ -22,30 +22,93 @@ namespace CalculatorWPF
 
         public void buttonPlusClicked(string numberString)
         {
-            window.setResultLabel(model.Count(numberString, new MathOperator(MathOperator.OperatorEnum.Add)));
-            window.appendToHistorylabel(numberString + "+");
+            char? lastOperator = window.getLastCharHistoryLabel();
+
+            if ((lastOperator == char.Parse("-") || lastOperator == char.Parse("*") 
+                || lastOperator == char.Parse("/") || lastOperator == char.Parse("^")) 
+                && window.isResultLabelEmpty)
+            {
+                model.setOperatorOnLastOperation(MathOperator.OperatorEnum.Add);
+                window.removeLastCharHistoryLabel();
+                window.appendToHistorylabel("+");
+            }
+            else
+            {
+                window.setResultLabel(model.Count(numberString, new MathOperator(MathOperator.OperatorEnum.Add)));
+                window.appendToHistorylabel(numberString + "+");
+            }
         }
 
         public void buttonMinusClicked(string numberString)
         {
-            window.setResultLabel(model.Count(numberString, new MathOperator(MathOperator.OperatorEnum.Subtract)));
-            window.appendToHistorylabel(numberString + "-");
+            char? lastOperator = window.getLastCharHistoryLabel();
+
+            if ((lastOperator == char.Parse("+") || lastOperator == char.Parse("*") 
+               || lastOperator == char.Parse("/") || lastOperator == char.Parse("^")) 
+               && window.isResultLabelEmpty)
+            {
+                model.setOperatorOnLastOperation(MathOperator.OperatorEnum.Subtract);
+                window.removeLastCharHistoryLabel();
+                window.appendToHistorylabel("-");
+            }
+            else
+            {
+                window.setResultLabel(model.Count(numberString, new MathOperator(MathOperator.OperatorEnum.Subtract)));
+                window.appendToHistorylabel(numberString + "-");
+            }
         }
         
         public void buttonMultiplyClicked(string numberString)
         {
-            window.setResultLabel(model.Count(numberString, new MathOperator(MathOperator.OperatorEnum.Multiply)));
-            window.appendToHistorylabel(numberString + "*");
+            char? lastOperator = window.getLastCharHistoryLabel();
+
+            if ((lastOperator == char.Parse("+") || lastOperator == char.Parse("-") ||
+               lastOperator == char.Parse("/") || lastOperator == char.Parse("^")) 
+               && window.isResultLabelEmpty)
+            {
+                model.setOperatorOnLastOperation(MathOperator.OperatorEnum.Multiply);
+                window.removeLastCharHistoryLabel();
+                window.appendToHistorylabel("*");
+            }
+            else
+            {
+                window.setResultLabel(model.Count(numberString, new MathOperator(MathOperator.OperatorEnum.Multiply)));
+                window.appendToHistorylabel(numberString + "*");
+            }
         }
 
         public void buttonDivideClicked(string numberString)
         {
-            window.setResultLabel(model.Count(numberString, new MathOperator(MathOperator.OperatorEnum.Divide)));
-            window.appendToHistorylabel(numberString + "/");
+            char? lastOperator = window.getLastCharHistoryLabel();
+
+            if ((lastOperator == char.Parse("+") || lastOperator == char.Parse("-") ||
+               lastOperator == char.Parse("*") || lastOperator ==char.Parse("^")) 
+               && window.isResultLabelEmpty)
+            {
+                model.setOperatorOnLastOperation(MathOperator.OperatorEnum.Divide);
+                window.removeLastCharHistoryLabel();
+                window.appendToHistorylabel("/");
+            }
+            else
+            {
+                window.setResultLabel(model.Count(numberString, new MathOperator(MathOperator.OperatorEnum.Divide)));
+                window.appendToHistorylabel(numberString + "/");
+            }
         }
 
         public void buttonPowerClicked(string numberString)
         {
+            char? lastOperator = window.getLastCharHistoryLabel();
+
+            if ((lastOperator == char.Parse("+") || lastOperator == char.Parse("-") 
+                || lastOperator == char.Parse("*") || lastOperator == char.Parse("/")) 
+               && window.isResultLabelEmpty)
+            {
+                model.setOperatorOnLastOperation(MathOperator.OperatorEnum.Power);
+                window.removeLastCharHistoryLabel();
+                window.appendToHistorylabel("^");
+            }
+
             window.setResultLabel(model.Count(numberString, new MathOperator(MathOperator.OperatorEnum.Power)));
             window.appendToHistorylabel(numberString + "^");
         }

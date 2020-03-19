@@ -19,6 +19,12 @@ namespace CalculatorWPF
                 operations.RemoveAt(operations.Count - 1);
         }
 
+        public void setOperatorOnLastOperation(MathOperator.OperatorEnum operat)
+        {
+            if (operations.Count != 0)
+                operations.Last().setMathOperator(new MathOperator(operat));
+        }
+
         public Calculation(Controler con)
         {
             controler = con;
