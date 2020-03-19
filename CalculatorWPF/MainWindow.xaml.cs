@@ -35,28 +35,42 @@ namespace CalculatorWPF
 
         //buttons
         private void Button_plus_click(object sender, RoutedEventArgs e)
-        {  
-            controler.operationButtonClicked(resultLabelStr.ToString(), new OperationStruct(OperationStruct.Operation.Add));
+        {
+            controler.buttonPlusClicked(resultLabelStr.ToString());
         }
 
         private void Button_minus_click(object sender, RoutedEventArgs e)
         {
-            controler.operationButtonClicked(resultLabelStr.ToString(), new OperationStruct(OperationStruct.Operation.Subtract));
+            controler.buttonMinusClicked(resultLabelStr.ToString());
         }
 
         private void Button_multiply_click(object sender, RoutedEventArgs e)
         {
-            controler.operationButtonClicked(resultLabelStr.ToString(), new OperationStruct(OperationStruct.Operation.Multiply));
+            controler.buttonMultiplyClicked(resultLabelStr.ToString());
         }
 
         private void Button_divide_click(object sender, RoutedEventArgs e)
         {
-            controler.operationButtonClicked(resultLabelStr.ToString(), new OperationStruct(OperationStruct.Operation.Divide));
+            controler.buttonDivideClicked(resultLabelStr.ToString());
+        }
+        private void Button_pow_click(object sender, RoutedEventArgs e)
+        {
+            controler.buttonPowerClicked(resultLabelStr.ToString());
         }
 
         private void Button_equals_click(object sender, RoutedEventArgs e)
         {
+            controler.buttonEqualsClicked();
+        }
 
+        private void Button_left_bracket_click(object sender, RoutedEventArgs e)
+        {
+            controler.buttonLeftBracketClicked();
+        }
+
+        private void Button_right_bracket_click(object sender, RoutedEventArgs e)
+        {
+            controler.buttonRightBracketClicked(resultLabelStr.ToString());
         }
 
 
@@ -232,5 +246,7 @@ namespace CalculatorWPF
             historyLabelStr.Append(number.ToString());
             Label_history.Content = historyLabelStr.ToString();
         }
+
+    
     }
 }

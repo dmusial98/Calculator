@@ -11,160 +11,161 @@ namespace CalculatorWPF
         //reference to controler
         Controler controler;
 
-        List<Double> results = new List<Double>();
-        List<OperationStruct> operations = new List<OperationStruct>();
-
-        bool isFirstOperation = true;        
+        List<Operation> operations = new List<Operation>();
 
         public Calculation(Controler con)
         {
             controler = con;
-            results.Add(0.0);
-            operations.Add(new OperationStruct(OperationStruct.Operation.None));
         }
 
-
-        //public double doBasicOperation(string numberStr, Operation oper)
-        //{
-        //    double numberDouble;
-
-        //    if (!Double.TryParse(numberStr, out numberDouble))
-        //    {
-        //        return result;
-        //    }
-
-        //    if (isFirstOperation)
-        //    {
-        //        result = numberDouble;
-        //        isFirstOperation = false;
-        //    }
-        //    else  //when calculator has second or later operator
-        //    {
-        //        switch (operation)
-        //        {
-        //            case Operation.Add:
-
-        //                result += numberDouble;
-        //                break;
-
-        //            case Operation.Subtract:
-        //                result -= numberDouble;
-        //                break;
-
-        //            case Operation.Multiply:
-        //                result *= numberDouble;
-        //                break;
-
-        //            case Operation.Divide:
-        //                result /= numberDouble;
-        //                break;
-        //        }
-
-        //    }
-
-        //    operation = oper;
-        //    return result;
-        //}
-
-
-        public double Count(string numberStr, OperationStruct newOperationStruct)
+        public double Count(string numberString, MathOperator newOperator)
         {
             double numberDouble;
 
-            if (!Double.TryParse(numberStr, out numberDouble))
+            if (!Double.TryParse(numberString, out numberDouble))
             {
-                return results[results.Count - 1];
-            }
+                //after right bracket user has given newOperator
 
-            if (isFirstOperation)
-            {
-                results[results.Count - 1] = numberDouble;
-                operations[operations.Count - 1] = newOperationStruct;
-                isFirstOperation = false;
-            }
-            else  //when calculator has second or later operator
-            {
-                if(newOperationStruct.priority == operations[operations.Count - 1].priority)
+                if(operations.Count != 1)
                 {
-                    switch (operations[operations.Count - 1].operation)
+                    if(operations[operations.Count - 2].HasLowerPriority(newOperator))
                     {
-                        case OperationStruct.Operation.Add:
-                            results[results.Count - 1] += numberDouble;
-                            break;
-
-                        case OperationStruct.Operation.Subtract:
-                            results[results.Count - 1] -= numberDouble;
-                            break;
-
-                        case OperationStruct.Operation.Multiply:
-                            results[results.Count - 1] *= numberDouble;
-                            break;
-
-                        case OperationStruct.Operation.Divide:
-                            results[results.Count - 1] /= numberDouble;
-                            break;
+                        operations.Last().setMathOperator(newOperator);
                     }
-
-                    operations[operations.Count - 1] = newOperationStruct;
-                }
-                else if((newOperationStruct.priority < operations[operations.Count - 1].priority))
-                {
-                    switch(operations[operations.Count - 1].operation)
+                    else
+                        //operations[operations.Count - 2].hasTheSamePriority(newOperator) || 
+                        //operations[operations.Count - 2].hasHigherPriority(newOperator)
                     {
-                        case OperationStruct.Operation.Add:
-                            results[results.Count - 1] += numberDouble;
-                        break;
-
-                        case OperationStruct.Operation.Subtract:
-                            results[results.Count - 1] -= numberDouble;
-                        break;
-
-                        case OperationStruct.Operation.Multiply:
-                            results[results.Count - 1] *= numberDouble;
-                        break;
-
-                        case OperationStruct.Operation.Divide:
-                            results[results.Count - 1] /= numberDouble;
-                        break;
+                        while (operations.Count != 1 && !operations[operations.Count - 2].IsInBrackets && 
+                            (operations[operations.Count - 2].HasTheSamePriority(newOperator)
+                            || operations[operations.Count - 2].HasHigherPriority(newOperator)))
+                        {
+                            moveArgDown();
+                            operations.Last().DoOperation();
+                        }
                     }
-
-                    operations.RemoveAt(operations.Count - 1); //deleting last operator
-
-                    switch(operations[operations.Count - 1].operation)
-                    {
-                        case OperationStruct.Operation.Add:
-                            results[results.Count - 2] += results[results.Count - 1];
-                            break;
-
-                        case OperationStruct.Operation.Subtract:
-                            results[results.Count - 2] -= results[results.Count - 1];
-                            break;
-
-                        case OperationStruct.Operation.Multiply:
-                            results[results.Count - 2] *= results[results.Count - 1];
-                            break;
-
-                        case OperationStruct.Operation.Divide:
-                            results[results.Count - 2] /= results[results.Count - 1];
-                            break;
-                    }
-
-                    results.RemoveAt(results.Count - 1);
+                    operations.Last().setMathOperator(newOperator);
                 }
                 else
                 {
-                    results.Add(numberDouble);
-                    operations.Add(newOperationStruct);
+                    operations.Last().setMathOperator(newOperator);
                 }
 
+                return operations.Last().firstArgument ?? Double.MinValue;
                 
-
             }
 
+            if (operations.Count == 0)
+                //first argument in calculation or first argument in new brackets
+            {
+                operations.Add(new Operation(newOperator, numberDouble));
+                return numberDouble;
+            }
+            else //operations.Count > 0
+            {
+                if (operations.Last().firstArgument == null && operations.Last().IsInBrackets)
+                //new empty operation in brackets
+                {
+                    operations.Last().firstArgument = numberDouble;
+                    operations.Last().setMathOperator(newOperator);
+                    return operations.Last().firstArgument ?? Double.MinValue;
+                }
+                else if (operations.Last().HasTheSamePriority(newOperator))
+                    //the same priority
+                {
+                    operations.Last().secondArgument = numberDouble;
+                    double result = operations.Last().DoOperation();
+                    operations.Last().setMathOperator(newOperator);
 
-            return results[results.Count - 1];
+                    return result;
+                }
+                else if (operations.Last().HasLowerPriority(newOperator))
+                    //lower priority old operator's
+                {
+                    operations.Add(new Operation(newOperator, numberDouble));
+                    return numberDouble;
+                }
+                else
+                    //higher priority old operator's
+                {
+                    operations.Last().secondArgument = numberDouble;
+                    operations.Last().DoOperation();
+
+                    while (operations.Last().HasHigherPriority(newOperator) && 
+                        !operations.Last().IsInBrackets && operations.Count != 1 && 
+                        operations[operations.Count - 2].getMathOperator() != null) 
+//////////////////////////LAST CONDITION ISN'T CERTAIN////////////////////////////////////////////
+                    {
+                        if (operations[operations.Count - 2].HasTheSamePriority(newOperator))
+                        {
+                            moveArgDown();
+                            operations.Last().DoOperation();
+                        }
+                        else if (operations[operations.Count - 2].HasLowerPriority(newOperator))
+                        {
+                            operations.Last().setMathOperator(newOperator);
+                        }
+                        else //operations[operations.Count - 2].HasHigherPriority(newOperator) == true
+                        {
+                            moveArgDown();
+                            operations.Last().DoOperation();
+                        }
+                    }
+
+                    operations.Last().setMathOperator(newOperator);
+                    return operations.Last().firstArgument ?? Double.MinValue;
+                }
+            }
+          
         }
 
+        public void LeftBracketService()
+        {
+            if(operations.Count != 0)
+                operations.Add(new Operation(true));
+        }
+
+        public double RightBracketService(string numberString)
+        {
+            double numberDouble;
+
+            if (!Double.TryParse(numberString, out numberDouble))
+            {
+                //throw an exception
+
+                return Double.MinValue;
+            }
+
+            operations.Last().secondArgument = numberDouble;
+
+                //doing operations in this brackets
+            while (!operations.Last().IsInBrackets && operations.Count != 1)
+            {
+                operations.Last().DoOperation();
+                moveArgDown();
+            }  
+
+            if(operations.Last().secondArgument != null)
+                operations.Last().DoOperation();
+
+            operations.Last().IsInBrackets = false;
+
+            return operations.Last().firstArgument ?? Double.MinValue;
+        }
+        
+
+        void moveArgDown()
+        {
+            if (operations[operations.Count - 2].firstArgument != null)
+                operations[operations.Count - 2].secondArgument = operations.Last().firstArgument;
+            else
+            {
+                operations[operations.Count - 2].firstArgument = operations.Last().firstArgument;
+                operations[operations.Count - 2].setMathOperator(operations.Last().getMathOperator());
+            }
+
+            operations.RemoveAt(operations.Count - 1);
+        }
     }
 }
 

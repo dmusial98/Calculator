@@ -20,34 +20,53 @@ namespace CalculatorWPF
             window = mw;
         }
 
-        public void operationButtonClicked(string numberStr, OperationStruct operationStruct)
+        public void buttonPlusClicked(string numberString)
         {
-            window.setResultLabel(model.Count(numberStr, operationStruct));
+            window.setResultLabel(model.Count(numberString, new MathOperator(MathOperator.OperatorEnum.Add)));
+            window.appendToHistorylabel(numberString + "+");
+        }
 
-            string _operator = "";
-
-            switch (operationStruct.operation)
-            {
-                case OperationStruct.Operation.Add :
-                    _operator = " + ";
-                    break;
-
-                case OperationStruct.Operation.Subtract :
-                    _operator = " - ";
-                    break;
-
-                case OperationStruct.Operation.Multiply :
-                    _operator = " x ";
-                    break;
-
-                case OperationStruct.Operation.Divide :
-                    _operator = " / ";
-                    break;
-            }
-
-            window.appendToHistorylabel(numberStr + _operator);
+        public void buttonMinusClicked(string numberString)
+        {
+            window.setResultLabel(model.Count(numberString, new MathOperator(MathOperator.OperatorEnum.Subtract)));
+            window.appendToHistorylabel(numberString + "-");
         }
         
+        public void buttonMultiplyClicked(string numberString)
+        {
+            window.setResultLabel(model.Count(numberString, new MathOperator(MathOperator.OperatorEnum.Multiply)));
+            window.appendToHistorylabel(numberString + "*");
+        }
+
+        public void buttonDivideClicked(string numberString)
+        {
+            window.setResultLabel(model.Count(numberString, new MathOperator(MathOperator.OperatorEnum.Divide)));
+            window.appendToHistorylabel(numberString + "/");
+        }
+
+        public void buttonPowerClicked(string numberString)
+        {
+            window.setResultLabel(model.Count(numberString, new MathOperator(MathOperator.OperatorEnum.Power)));
+            window.appendToHistorylabel(numberString + "^");
+        }
+
+        public void buttonLeftBracketClicked()
+        {
+            model.LeftBracketService();
+            window.appendToHistorylabel("(");
+        }
+
+        public void buttonRightBracketClicked(string numberString)
+        {
+            window.setResultLabel(model.RightBracketService(numberString));
+            window.appendToHistorylabel(numberString + ")");
+        }
+
+        public void buttonEqualsClicked()
+        {
+
+        }
+
     }
 
 
