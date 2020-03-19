@@ -33,16 +33,21 @@ namespace CalculatorWPF
                         operations.Last().setMathOperator(newOperator);
                     }
                     else
-                    //operations[operations.Count - 2].hasTheSamePriority(newOperator) || operations[operations.Count - 2].hasHigherPriority(newOperator)
+                        //operations[operations.Count - 2].hasTheSamePriority(newOperator) || 
+                        //operations[operations.Count - 2].hasHigherPriority(newOperator)
                     {
-                        while (operations.Count != 1 && (operations[operations.Count - 2].HasTheSamePriority(newOperator)
-                            || operations[operations.Count - 2].HasHigherPriority(newOperator)) && !operations[operations.Count - 2].IsInBrackets)
+                        while (operations.Count != 1 && !operations[operations.Count - 2].IsInBrackets && 
+                            (operations[operations.Count - 2].HasTheSamePriority(newOperator)
+                            || operations[operations.Count - 2].HasHigherPriority(newOperator)))
                         {
-                            operations[operations.Count - 2].secondArgument = operations.Last().firstArgument;
-                            operations.RemoveAt(operations.Count - 1);
+                            moveArgDown();
                             operations.Last().DoOperation();
                         }
                     }
+                    operations.Last().setMathOperator(newOperator);
+                }
+                else
+                {
                     operations.Last().setMathOperator(newOperator);
                 }
 
@@ -87,12 +92,13 @@ namespace CalculatorWPF
                     operations.Last().DoOperation();
 
                     while (operations.Last().HasHigherPriority(newOperator) && 
-                        !operations.Last().IsInBrackets && operations.Count != 1)
+                        !operations.Last().IsInBrackets && operations.Count != 1 && 
+                        operations[operations.Count - 2].getMathOperator() != null) 
+//////////////////////////LAST CONDITION ISN'T CERTAIN////////////////////////////////////////////
                     {
                         if (operations[operations.Count - 2].HasTheSamePriority(newOperator))
                         {
-                            operations[operations.Count - 2].secondArgument = operations.Last().firstArgument;
-                            operations.RemoveAt(operations.Count - 1);
+                            moveArgDown();
                             operations.Last().DoOperation();
                         }
                         else if (operations[operations.Count - 2].HasLowerPriority(newOperator))
@@ -101,8 +107,7 @@ namespace CalculatorWPF
                         }
                         else //operations[operations.Count - 2].HasHigherPriority(newOperator) == true
                         {
-                            operations[operations.Count - 2].secondArgument = operations.Last().firstArgument;
-                            operations.RemoveAt(operations.Count - 1);
+                            moveArgDown();
                             operations.Last().DoOperation();
                         }
                     }
@@ -116,7 +121,8 @@ namespace CalculatorWPF
 
         public void LeftBracketService()
         {
-            operations.Add(new Operation(true));
+            if(operations.Count != 0)
+                operations.Add(new Operation(true));
         }
 
         public double RightBracketService(string numberString)
@@ -132,30 +138,34 @@ namespace CalculatorWPF
 
             operations.Last().secondArgument = numberDouble;
 
+                //doing operations in this brackets
             while (!operations.Last().IsInBrackets && operations.Count != 1)
             {
                 operations.Last().DoOperation();
-                operations[operations.Count - 2].secondArgument = operations.Last().firstArgument;
-                operations.RemoveAt(operations.Count - 1);
-            }
+                moveArgDown();
+            }  
 
-            operations.Last().DoOperation();
+            if(operations.Last().secondArgument != null)
+                operations.Last().DoOperation();
 
-            //if (operations.Count != 1)
-            //{
-            //    do
-            //    {
-            //        operations[operations.Count - 2].secondArgument = operations.Last().firstArgument;
-            //        operations.RemoveAt(operations.Count - 1);
-            //        operations.Last().DoOperation();
-            //    }
-            //    while (!operations.Last().IsInBrackets && operations.Count != 1);
+            operations.Last().IsInBrackets = false;
 
-            
-            //}
             return operations.Last().firstArgument ?? Double.MinValue;
         }
         
+
+        void moveArgDown()
+        {
+            if (operations[operations.Count - 2].firstArgument != null)
+                operations[operations.Count - 2].secondArgument = operations.Last().firstArgument;
+            else
+            {
+                operations[operations.Count - 2].firstArgument = operations.Last().firstArgument;
+                operations[operations.Count - 2].setMathOperator(operations.Last().getMathOperator());
+            }
+
+            operations.RemoveAt(operations.Count - 1);
+        }
     }
 }
 
